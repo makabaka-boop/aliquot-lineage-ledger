@@ -1,0 +1,17 @@
+services:
+  api:
+    build: .
+    image: sample-inventory-api:latest
+    container_name: sample-inventory-api
+    ports:
+      - "8000:8000"
+    environment:
+      # The file is stored on the named volume so data survives container restarts.
+      DB_PATH: /data/inventory.db
+    volumes:
+      - sample-data:/data
+    restart: unless-stopped
+    init: true
+
+volumes:
+  sample-data:
